@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on 404</title><link>https://0Hzc.github.io/categories/blog/</link><description>Recent content in Blog on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 05 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>How to deploy blog system by hugo</title><link>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</link><pubDate>Tue, 05 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/hugo.jpg" alt="Featured image of post How to deploy blog system by hugo" />&lt;p>this article is to record how to use hugo to build blog&lt;/p>
+&lt;h2 id="introduction">introduction
+&lt;/h2>&lt;p>this server is running on github&amp;rsquo;s codespace . I&amp;rsquo;ll try to solve this problem that can&amp;rsquo;t open the website by access 0Hzc.github.io&lt;/p>
+&lt;h3 id="1step1">1.step1
+&lt;/h3>&lt;p>get ready for the environment,to deploy this server need go , git ,and install hugo_extrended .
+Notice that hugo edition is hugo_extrended not the standard hugo : if use the standard hugo,you will can&amp;rsquo;t deploy other themes.&lt;/p>
+&lt;h3 id="2-step2">2. step2
+&lt;/h3>&lt;p>according to the docs from hugo&amp;rsquo;s official websites,use the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">hugo new site quickstart //dirname is the directory &lt;span class="k">for&lt;/span> storing the project
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> quickstart
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git submodule add https://xxxxxxx.git themes/xxx. //xxxxxxx is the url &lt;span class="k">for&lt;/span> the themes which you choose,xxx is the name of themes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;theme = &amp;#39;xxx&amp;#39;&amp;#34;&lt;/span> &amp;gt;&amp;gt; hugo.toml. // this &lt;span class="nb">command&lt;/span> is add &lt;span class="s2">&amp;#34;theme = &amp;#39;xxx&amp;#39;&amp;#34;&lt;/span> into the hugo.toml
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
