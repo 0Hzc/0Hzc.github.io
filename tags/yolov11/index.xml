@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yolov11 on 404</title><link>https://0Hzc.github.io/tags/yolov11/</link><description>Recent content in Yolov11 on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 08 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/tags/yolov11/index.xml" rel="self" type="application/rss+xml"/><item><title>使用github+hugo部署博客</title><link>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</link><pubDate>Fri, 08 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/ultralytics.jpg" alt="Featured image of post 使用github+hugo部署博客" />&lt;p>本文主要记录如何配置yolov11所需的anaconda环境以及下载并运行初始模型，
+其中关于如何下载anaconda，配置conda至系统环境变量以及如何使用pycharm IDE进行选择conda环境见本文末尾的参考链接&lt;/p>
+&lt;h2 id="如何配置环境并下载初始模型进行测试">如何配置环境，并下载初始模型进行测试
+&lt;/h2>&lt;h3 id="conda基础命令">conda基础命令
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#查看当前存在哪些conda虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda env list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#新建conda虚拟环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda create -n yolov11 &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.10 &lt;span class="c1">#yolov11可随意更改,意义为创建的虚拟环境的名字&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#激活conda虚拟环境/选择某个环境作为编译环境&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">conda activate yolov11 &lt;span class="c1">#此处的yolov11则为新建时创建的虚拟环境名字&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步骤1gpu安装相关驱动">步骤1：GPU安装相关驱动
+&lt;/h3>&lt;p>参考文章尾部链接安装cuda、cudnn&lt;/p>
+&lt;h3 id="步骤2配置虚拟环境">步骤2：配置虚拟环境
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#查看当前环境存在哪些包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装pytorch框架&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install &lt;span class="nv">torch&lt;/span>&lt;span class="o">==&lt;/span>2.0.0+cu118 &lt;span class="nv">torchvision&lt;/span>&lt;span class="o">==&lt;/span>0.15.1+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#安装yolo命令包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install ultralytics
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步骤3下载模型预训练权重">步骤3：下载模型、预训练权重
+&lt;/h3>&lt;p>访问地址：https://github.com/ultralytics/ultralytics/（yolo的github仓库）
+下载使用COCO数据集训练的得到的预训练权重文件、在仓库的Readme的model下的Detection (COCO)部分&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: center">Model&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: center">YOLO11n&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">YOLO11s&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">YOLO11m&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">YOLO11l&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: center">YOLO11x&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>在仓库的realse处下载模型压缩包&lt;/p>
+&lt;h3 id="步骤4使用模型进行测试">步骤4：使用模型进行测试
+&lt;/h3>&lt;p>1.将在realse下载的模型压缩包解压，并在IDE中打开，让终端在该目录下即可
+2.将下载的预训练权重放置该目录下
+3.随意准备一张测试图放置该目录下，准备用作目标检测&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">yolo predict &lt;span class="nv">model&lt;/span>&lt;span class="o">=&lt;/span>yolo11n.pt &lt;span class="nv">source&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;cat.jpg&amp;#39;&lt;/span> &lt;span class="c1">#yolo11n.pt修改为下载的预训练权重，cat.jpg修改为准备的图片名和格式&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考链接">参考链接
+&lt;/h2>&lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_67105081/article/details/143270109?spm=1001.2014.3001.5502" target="_blank" rel="noopener"
+>https://blog.csdn.net/qq_67105081/article/details/143270109?spm=1001.2014.3001.5502&lt;/a>&lt;/p></description></item></channel></rss>
