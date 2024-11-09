@@ -345,7 +345,7 @@ readers 文件夹专门用来存放所有与文件读取相关的代码
 &lt;/div>
 &lt;/div>&lt;h2 id="参考链接">参考链接
 &lt;/h2>&lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_67105081/article/details/143270109?spm=1001.2014.3001.5502" target="_blank" rel="noopener"
->https://blog.csdn.net/qq_67105081/article/details/143270109?spm=1001.2014.3001.5502&lt;/a>&lt;/p></description></item><item><title>使用github+hugo部署博客</title><link>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</link><pubDate>Thu, 07 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/deployed.jpg" alt="Featured image of post 使用github+hugo部署博客" />&lt;p>本文记录如何使用github的两个仓库进行部署hugo生成的静态html博客&lt;/p>
+>https://blog.csdn.net/qq_67105081/article/details/143270109?spm=1001.2014.3001.5502&lt;/a>&lt;/p></description></item><item><title>使用github+hugo部署博客</title><link>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</link><pubDate>Thu, 07 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/deployed1.jpg" alt="Featured image of post 使用github+hugo部署博客" />&lt;p>本文记录如何使用github的两个仓库进行部署hugo生成的静态html博客&lt;/p>
 &lt;h2 id="流程">流程
 &lt;/h2>&lt;h3 id="步骤1">步骤1：
 &lt;/h3>&lt;p>在github上建立一个私有库，用于存放hugo的源代码（后续记录如何本地安装并调试hugo进行网页效果展示）&lt;/p>
@@ -485,7 +485,7 @@ readers 文件夹专门用来存放所有与文件读取相关的代码
 &lt;/div>
 &lt;/div>&lt;h2 id="参考链接">参考链接
 &lt;/h2>&lt;p>&lt;a class="link" href="https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/" target="_blank" rel="noopener"
->https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/&lt;/a>&lt;/p></description></item><item><title>How to deploy blog system by hugo</title><link>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</link><pubDate>Tue, 05 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/hugo.jpg" alt="Featured image of post How to deploy blog system by hugo" />&lt;p>this article is to record how to use hugo to build blog&lt;/p>
+>https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/&lt;/a>&lt;/p></description></item><item><title>How to deploy blog system by hugo</title><link>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</link><pubDate>Tue, 05 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/hugo1.jpg" alt="Featured image of post How to deploy blog system by hugo" />&lt;p>this article is to record how to use hugo to build blog&lt;/p>
 &lt;h2 id="introduction">introduction
 &lt;/h2>&lt;p>this server is running on github&amp;rsquo;s codespace . I&amp;rsquo;ll try to solve this problem that can&amp;rsquo;t open the website by access 0Hzc.github.io&lt;/p>
 &lt;h3 id="1step1">1.step1
