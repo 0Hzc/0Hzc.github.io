@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on 404</title><link>https://0Hzc.github.io/categories/blog/</link><description>Recent content in Blog on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>学习python项目</title><link>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</link><pubDate>Sat, 09 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/cloud.jpg" alt="Featured image of post 学习python项目" />&lt;h2 id="学习开发python项目">学习开发python项目
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on 404</title><link>https://0Hzc.github.io/categories/blog/</link><description>Recent content in Blog on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 20 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>如何再次部署yjs+quill协同编辑器</title><link>https://0Hzc.github.io/p/%E5%A6%82%E4%BD%95%E5%86%8D%E6%AC%A1%E9%83%A8%E7%BD%B2yjs-quill%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91%E5%99%A8/</link><pubDate>Wed, 20 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E5%A6%82%E4%BD%95%E5%86%8D%E6%AC%A1%E9%83%A8%E7%BD%B2yjs-quill%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91%E5%99%A8/</guid><description>&lt;p>本文记录如何使用yjs+quill协同编辑器进行二次部署,使用已经搭建过的yjsdemo实现快速部署
+用于服务器更新资源，需要二次部署时使用&lt;/p>
+&lt;h3 id="步骤1">步骤1：
+&lt;/h3>&lt;p>从github仓库中下载源码&lt;/p>
+&lt;h3 id="步骤2">步骤2：
+&lt;/h3>&lt;p>安装npm、nginx反向代理&lt;/p>
+&lt;h3 id="步骤3">步骤3：
+&lt;/h3>&lt;p>在工程目录下npm install&lt;/p>
+&lt;h3 id="步骤4">步骤4：
+&lt;/h3>&lt;p>编辑nginx配置文件,以petherfish.cn为例&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">sudo nano /etc/nginx/sites-available/petherfish.cn
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>配置文件如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">server &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 80&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen &lt;span class="o">[&lt;/span>::&lt;span class="o">]&lt;/span>:80&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name petherfish.cn&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 编辑器的反向代理配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location /edit &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:5173&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection &lt;span class="s2">&amp;#34;upgrade&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Real-IP &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-Proto &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># WebSocket 支持&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_read_timeout 86400&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># WebSocket 服务器的反向代理配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location /ws &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:1234&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection &lt;span class="s2">&amp;#34;upgrade&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_read_timeout 86400&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 用于处理其他请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> root /usr/share/nginx/html&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> index index.html index.htm&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> try_files &lt;span class="nv">$uri&lt;/span> &lt;span class="nv">$uri&lt;/span>/ &lt;span class="o">=&lt;/span>404&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 日志配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> access_log /var/log/nginx/petherfish.cn.access.log&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> error_log /var/log/nginx/petherfish.cn.error.log&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>重启nginx&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">sudo systemctl restart nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步骤5">步骤5：
+&lt;/h3>&lt;p>本地测试&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">npm start
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">npm run dev
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>无报错后访问petherfish.cn/edit/,测试是否可以正常访问&lt;/p>
+&lt;h3 id="步骤6">步骤6：
+&lt;/h3>&lt;p>编写vite.config.js文件，系统服务文件
+编写webserver.py文件，系统服务文件&lt;/p></description></item><item><title>学习python项目</title><link>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</link><pubDate>Sat, 09 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</guid><description>&lt;h2 id="学习开发python项目">学习开发python项目
 &lt;/h2>&lt;p>附录内容为python的相关语法和库的介绍
 主体内容为python项目开发流程和框架结构&lt;/p>
 &lt;h3 id="step1-创建项目目录">step1 创建项目目录
@@ -252,7 +389,7 @@ readers 文件夹专门用来存放所有与文件读取相关的代码
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">__all__&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;check_file_exists&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;get_file_extension&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>使用github+hugo部署博客</title><link>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</link><pubDate>Thu, 07 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/deployed1.jpg" alt="Featured image of post 使用github+hugo部署博客" />&lt;p>本文记录如何使用github的两个仓库进行部署hugo生成的静态html博客&lt;/p>
+&lt;/div></description></item><item><title>使用github+hugo部署博客</title><link>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</link><pubDate>Thu, 07 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BD%BF%E7%94%A8github-hugo%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</guid><description>&lt;p>本文记录如何使用github的两个仓库进行部署hugo生成的静态html博客&lt;/p>
 &lt;h2 id="流程">流程
 &lt;/h2>&lt;h3 id="步骤1">步骤1：
 &lt;/h3>&lt;p>在github上建立一个私有库，用于存放hugo的源代码（后续记录如何本地安装并调试hugo进行网页效果展示）&lt;/p>
@@ -392,7 +529,7 @@ readers 文件夹专门用来存放所有与文件读取相关的代码
 &lt;/div>
 &lt;/div>&lt;h2 id="参考链接">参考链接
 &lt;/h2>&lt;p>&lt;a class="link" href="https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/" target="_blank" rel="noopener"
->https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/&lt;/a>&lt;/p></description></item><item><title>How to deploy blog system by hugo</title><link>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</link><pubDate>Tue, 05 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</guid><description>&lt;img src="https://0Hzc.github.io/images/covers/hugo1.jpg" alt="Featured image of post How to deploy blog system by hugo" />&lt;p>this article is to record how to use hugo to build blog&lt;/p>
+>https://krislinzhao.github.io/docs/create-a-wesite-using-github-pages-and-hugo/&lt;/a>&lt;/p></description></item><item><title>How to deploy blog system by hugo</title><link>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</link><pubDate>Tue, 05 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/how-to-deploy-blog-system-by-hugo/</guid><description>&lt;p>this article is to record how to use hugo to build blog&lt;/p>
 &lt;h2 id="introduction">introduction
 &lt;/h2>&lt;p>this server is running on github&amp;rsquo;s codespace . I&amp;rsquo;ll try to solve this problem that can&amp;rsquo;t open the website by access 0Hzc.github.io&lt;/p>
 &lt;h3 id="1step1">1.step1
