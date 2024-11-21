@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 404</title><link>https://0Hzc.github.io/tags/python/</link><description>Recent content in Python on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 21 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>python学习记录1</title><link>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Thu, 21 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>记录并总结python中与终端的交互处理、参数传递等&lt;/p>
 &lt;h2 id="实现两种终端处理方式一种为命令行参数一种为终端输入">实现两种终端处理方式，一种为命令行参数，一种为终端输入
 &lt;/h2>&lt;h3 id="终端输入">终端输入
-&lt;/h3>&lt;p>&lt;img src="https://0Hzc.github.io/image-3.png"
+&lt;/h3>&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-3.png"
 loading="lazy"
 alt="效果展示"
 >&lt;/p>
@@ -51,16 +51,16 @@ alt="效果展示"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">Fore&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">MAGENTA&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">输入路径为：&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">input_path&lt;/span>&lt;span class="si">}{&lt;/span>&lt;span class="n">Style&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RESET_ALL&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>注：
-&lt;img src="https://0Hzc.github.io/image.png"
+&lt;/div>&lt;p>注：&lt;/p>
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image.png"
 loading="lazy"
 alt="print函数内容解释"
 >&lt;/p>
-&lt;p>&lt;img src="https://0Hzc.github.io/image-2.png"
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-2.png"
 loading="lazy"
 alt="while循环解释"
 >&lt;/p>
-&lt;p>&lt;img src="https://0Hzc.github.io/image-1.png"
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-1.png"
 loading="lazy"
 alt="input函数获取终端输入解释"
 >&lt;/p>
@@ -96,7 +96,6 @@ alt="input函数获取终端输入解释"
 &lt;/span>&lt;span class="lnt">27
 &lt;/span>&lt;span class="lnt">28
 &lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#导入模块&lt;/span>
@@ -107,8 +106,7 @@ alt="input函数获取终端输入解释"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 设置参数解析器&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">parser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">argparse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ArgumentParser&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;护花米草遥感识别处理程序&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">## 添加必填参数与非必填参数&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#必填参数&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 必需的参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#必需的参数&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">parser&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;-i&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;--input&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">required&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">help&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;输入数据文件夹路径（包含nc文件）&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">parser&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;-w&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;--word&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">required&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">,&lt;/span>
@@ -132,15 +130,15 @@ alt="input函数获取终端输入解释"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>注：&lt;/p>
-&lt;p>&lt;img src="https://0Hzc.github.io/image-5.png"
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-5.png"
 loading="lazy"
 alt="参数说明"
 >&lt;/p>
-&lt;p>&lt;img src="https://0Hzc.github.io/image-6.png"
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-6.png"
 loading="lazy"
 alt="解析参数的作用"
 >&lt;/p>
-&lt;p>&lt;img src="https://0Hzc.github.io/image-4.png"
+&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-4.png"
 loading="lazy"
 alt="解析参数的映射"
 >&lt;/p></description></item><item><title>学习python项目</title><link>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</link><pubDate>Sat, 09 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E5%AD%A6%E4%B9%A0python%E9%A1%B9%E7%9B%AE/</guid><description>&lt;h2 id="学习开发python项目">学习开发python项目
