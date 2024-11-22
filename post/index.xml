@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 404</title><link>https://0Hzc.github.io/post/</link><description>Recent content in Posts on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 21 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>python学习记录1</title><link>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Thu, 21 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>记录并总结python中与终端的交互处理、参数传递等&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 404</title><link>https://0Hzc.github.io/post/</link><description>Recent content in Posts on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>云服务器代理设置</title><link>https://0Hzc.github.io/p/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link><pubDate>Fri, 22 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid><description>&lt;p>记录给云服务器设置本地局域网代理&lt;/p>
+&lt;h2 id="大致概括">大致概括
+&lt;/h2>&lt;p>通过ssh建立本地代理服务器与云服务器的连接，开启本地代理，关闭本地代理服务器防火墙，关闭云服务器防火墙，设置云服务器代理&lt;/p>
+&lt;h3 id="1建立ssh连接">1.建立ssh连接
+&lt;/h3>&lt;p>将本地代理端口映射至云服务器的ssh连接端口，如22，10022&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#打开代理终端，进行ssh配置连接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#以本地代理端口为7897为例&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh -i C:&lt;span class="se">\U&lt;/span>sers&lt;span class="se">\H\.&lt;/span>ssh&lt;span class="se">\i&lt;/span>d_rsa -R 7897:localhost:7897 username@ip -p &lt;span class="m">10022&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>确保ssh服务器连接成功
+注解：其中-i 后面设置的参数是密钥对的地址，@前面是云服务器的用户名，@后面是云服务器的公网ip，-p 后面设置的是云服务器的ssh连接端口&lt;/p>
+&lt;h3 id="2开启本地代理">2.开启本地代理
+&lt;/h3>&lt;p>启动clash或其他代理工具，开启局域网连接，选择转发端口为7897&lt;/p>
+&lt;h3 id="3关闭本地代理服务器防火墙">3.关闭本地代理服务器防火墙
+&lt;/h3>&lt;h3 id="4设置云服务器的代理">4.设置云服务器的代理
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#设置http代理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://localhost:7897
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#设置https代理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>http://localhost:7897
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#查看云服务代理&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">env &lt;span class="p">|&lt;/span> grep -i proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#测试代理是否成功&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -i www.google.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="5取消代理">5.取消代理
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">http_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">https_proxy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>python学习记录1</title><link>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Thu, 21 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/python%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>记录并总结python中与终端的交互处理、参数传递等&lt;/p>
 &lt;h2 id="实现两种终端处理方式一种为命令行参数一种为终端输入">实现两种终端处理方式，一种为命令行参数，一种为终端输入
 &lt;/h2>&lt;h3 id="终端输入">终端输入
 &lt;/h3>&lt;p>&lt;img src="https://0Hzc.github.io/images/python_study1/image-3.png"
