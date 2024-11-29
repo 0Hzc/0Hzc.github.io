@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yolo on 404</title><link>https://0Hzc.github.io/tags/yolo/</link><description>Recent content in Yolo on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 29 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/tags/yolo/index.xml" rel="self" type="application/rss+xml"/><item><title>yolo学习记录1</title><link>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Fri, 29 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>学习yolov11的一些基本概念，和一些基础操作内容的作用&lt;/p>
+&lt;h1 id="配置文件">配置文件
+&lt;/h1>&lt;p>在yolov11下载的工具包中，&amp;ldquo;ultralytics-main\ultralytics\cfg\models\11\yolo11.yaml&amp;rdquo;，该文件中包括了yolov11的配置文件&lt;/p>
+&lt;h2 id="主干网络">主干网络
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># YOLO11n backbone&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">backbone&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># [from, repeats, module, args]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 0-P1/2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">128&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 1-P2/4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.25&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 3-P3/8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.25&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 5-P4/16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 7-P5/32&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SPPF&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 9&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C2PSA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>[-1, 2, C3k2, [256, False, 0.25]]&lt;/li>
+&lt;/ul>
+&lt;p>这四个参数的含义：&lt;/p>
+&lt;ol>
+&lt;li>-1：表示输入来源&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>-1 表示使用上一层的输出作为输入&lt;/li>
+&lt;li>如果是其他数字(如6)，则表示使用第6层的输出作为输入&lt;/li>
+&lt;li>这种设计允许网络创建跳跃连接&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>2：表示重复次数&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>这个模块会重复执行2次&lt;/li>
+&lt;li>每次执行都会使用前一次的输出作为输入&lt;/li>
+&lt;li>增加网络深度和特征提取能力&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>C3k2：模块名称&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>表示使用C3k2模块（一种改进的CSP模块）&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>[256, False, 0.25]：模块参数&lt;/li>
+&lt;/ol>
+&lt;p>可见主干网络包括以下关键组件：
+1.初始卷积层
+2.特征提取层&lt;/p>
+&lt;h3 id="1初始卷积层">1.初始卷积层
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 0-P1/2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">128&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 1-P2/4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>第一层卷积：Conv, [64, 3, 2]
+输入：原始图像 (3通道)
+输出：64通道特征图
+卷积核：3×3
+步长：2&lt;/p>
+&lt;p>第二层卷积：Conv, [128, 3, 2]
+输入：64通道特征图
+输出：128通道特征图
+卷积核：3×3
+步长：2&lt;/p>
+&lt;p>&lt;font color=red size=4>步长2实现降采样&lt;/font>
+&lt;font color=red size=4>通道数增加扩展特征维度&lt;/font>
+通道数增加的意义
+每个通道代表一种特征模式
+更多通道 = 可以学习更多种类的特征
+类比：用64/128支画笔来画画，画笔越多，可以表达的细节越丰富&lt;/p>
+&lt;p>主要作用
+1.降采样&lt;/p>
+&lt;ul>
+&lt;li>每层步长为2，两层共降采样4倍&lt;/li>
+&lt;li>640×640 → 320×320 → 160×160&lt;/li>
+&lt;li>减少后续计算量
+2.特征提取&lt;/li>
+&lt;li>提取基础的视觉特征（如边缘、纹理等）&lt;/li>
+&lt;li>通道数增加：3 → 64 → 128&lt;/li>
+&lt;li>增加特征表达能力
+3.信息压缩&lt;/li>
+&lt;li>压缩空间维度&lt;/li>
+&lt;li>扩展通道维度&lt;/li>
+&lt;li>为后续深层特征提取做准备&lt;/li>
+&lt;/ul>
+&lt;h3 id="2特征提取层">2.特征提取层
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.25&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 3-P3/8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.25&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 5-P4/16&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">512&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Conv&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 7-P5/32&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C3k2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SPPF&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 9&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">-&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">C2PSA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">]]&lt;/span> &lt;span class="c1"># 10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>包含三个模块
+&lt;font color=red size=4>1. C3k2 模块&lt;/font>&lt;/p>
+&lt;p>1.参数说明：&lt;/p>
+&lt;ul>
+&lt;li>[256, False, 0.25]：&lt;/li>
+&lt;li>256：输出通道数&lt;/li>
+&lt;li>False：是否使用 shortcut 连接&lt;/li>
+&lt;li>0.25：通道压缩比例
+2.工作原理：&lt;/li>
+&lt;li>将输入特征分成两部分&lt;/li>
+&lt;li>一部分直接通过&lt;/li>
+&lt;li>另一部分经过多个卷积层处理&lt;/li>
+&lt;li>最后合并两部分特征
+3.优势：&lt;/li>
+&lt;li>减少计算量&lt;/li>
+&lt;li>保持梯度流动&lt;/li>
+&lt;li>增强特征提取能力&lt;/li>
+&lt;/ul>
+&lt;p>&lt;font color=green size=4>Shortcut 连接&lt;/font>
+shortcut 连接是一种网络设计技巧，主要有以下特点：
+1.基本原理&lt;/p>
+&lt;ul>
+&lt;li>在网络中创建一条捷径&lt;/li>
+&lt;li>让信息可以跳过某些层直接传递&lt;/li>
+&lt;li>类似于高速公路的快车道&lt;/li>
+&lt;/ul>
+&lt;p>2.作用
+2.1 解决梯度消失问题&lt;/p>
+&lt;ul>
+&lt;li>深层网络训练困难&lt;/li>
+&lt;li>shortcut 提供梯度反向传播的快速通道&lt;/li>
+&lt;li>帮助深层网络也能有效训练
+2.2 保留原始信息&lt;/li>
+&lt;li>让网络可以直接访问浅层特征&lt;/li>
+&lt;li>避免信息在传递过程中损失&lt;/li>
+&lt;li>提高特征利用效率&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>提升模型性能&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>加快收敛速度&lt;/li>
+&lt;li>提高特征提取能力&lt;/li>
+&lt;li>改善最终检测效果&lt;/li>
+&lt;/ul>
+&lt;p>&lt;font color=red size=4>2. SPPF 模块&lt;/font>&lt;/p>
+&lt;p>1.参数说明：&lt;/p>
+&lt;ul>
+&lt;li>[1024, 5]：&lt;/li>
+&lt;li>1024：输出通道数&lt;/li>
+&lt;li>5：最大池化核大小
+2.工作原理：&lt;/li>
+&lt;li>输入特征先经过 1×1 卷积降维&lt;/li>
+&lt;li>连续进行最大池化，得到不同尺度特征&lt;/li>
+&lt;li>将所有特征拼接&lt;/li>
+&lt;li>最后用 1×1 卷积整合
+3.优势：&lt;/li>
+&lt;li>获取多尺度上下文信息&lt;/li>
+&lt;li>比传统 SPP 更快&lt;/li>
+&lt;li>增大感受野&lt;/li>
+&lt;/ul>
+&lt;p>&lt;font color=red size=4>3. C2PSA 模块&lt;/font>&lt;/p>
+&lt;p>1.参数说明：&lt;/p>
+&lt;ul>
+&lt;li>[1024]：输出通道数
+2.工作原理：
+2.1 空间注意力计算：&lt;/li>
+&lt;li>生成空间注意力图&lt;/li>
+&lt;li>突出重要区域&lt;/li>
+&lt;li>抑制无关区域
+2.2 特征增强&lt;/li>
+&lt;li>原始特征与注意力图相乘&lt;/li>
+&lt;li>增强重要特征&lt;/li>
+&lt;li>抑制噪声特征
+3.优势：&lt;/li>
+&lt;li>自适应特征增强&lt;/li>
+&lt;li>提高特征表达能力&lt;/li>
+&lt;li>改善检测性能&lt;/li>
+&lt;/ul></description></item></channel></rss>
