@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>404</title><link>https://0Hzc.github.io/</link><description>Recent content on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 29 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>yolo学习记录1</title><link>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Fri, 29 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>学习yolov11的一些基本概念，和一些基础操作内容的作用&lt;/p>
 &lt;h1 id="配置文件">配置文件
 &lt;/h1>&lt;p>在yolov11下载的工具包中，&amp;ldquo;ultralytics-main\ultralytics\cfg\models\11\yolo11.yaml&amp;rdquo;，该文件中包括了yolov11的配置文件&lt;/p>
+&lt;h2 id="相关概念">相关概念
+&lt;/h2>&lt;h3 id="font-colorgreen-size4空间注意力fontbr">&lt;font color=green size=4>空间注意力&lt;/font>&lt;br>
+&lt;/h3>&lt;h4 id="1-为什么要计算空间注意力">1. 为什么要计算空间注意力
+&lt;/h4>&lt;ul>
+&lt;li>帮助模型聚焦于重要区域&lt;/li>
+&lt;li>抑制无关背景的干扰&lt;/li>
+&lt;li>增强特征的表达能力&lt;/li>
+&lt;li>提高检测精度&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h4 id="2-如何计算空间注意力">2. 如何计算空间注意力
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">SpatialAttention&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Module&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">kernel_size&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">padding&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">kernel_size&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">7&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cv1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">nn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Conv2d&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">kernel_size&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">padding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">padding&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bias&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">act&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">nn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Sigmoid&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">forward&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 1. 计算通道维度的平均值和最大值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">avg_out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mean&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">keepdim&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 平均池化&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_out&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">keepdim&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 最大池化&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 2. 拼接这两个特征图&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x_cat&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">torch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cat&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">avg_out&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">max_out&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 3. 通过卷积层和sigmoid得到注意力权重&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">attention&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">act&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cv1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x_cat&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 4. 将注意力权重与原始特征相乘&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">attention&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>计算步骤：&lt;br>
+1.特征统计：&lt;/p>
+&lt;ul>
+&lt;li>计算特征图的通道平均值&lt;/li>
+&lt;li>计算特征图的通道最大值
+2.特征融合：&lt;/li>
+&lt;li>将平均值和最大值特征图拼接&lt;/li>
+&lt;li>得到表达空间信息的特征图
+3.注意力权重：&lt;/li>
+&lt;li>用7×7卷积处理融合特征&lt;/li>
+&lt;li>通过sigmoid得到0-1之间的权重
+4.特征增强：&lt;/li>
+&lt;li>将注意力权重与原始特征相乘&lt;/li>
+&lt;li>突出重要区域，抑制次要区域&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h4 id="3-作用">3. 作用
+&lt;/h4>&lt;p>让网络能够：&lt;br>&lt;/p>
+&lt;ul>
+&lt;li>自适应地关注重要空间位置&lt;/li>
+&lt;li>减少背景噪声的影响&lt;/li>
+&lt;li>提高特征的判别能力&lt;/li>
+&lt;/ul>
+&lt;h3 id="font-colorgreen-size4自注意力fontbr">&lt;font color=green size=4>自注意力&lt;/font>&lt;br>
+&lt;/h3>&lt;h4 id="为什么要计算自注意力">为什么要计算自注意力
+&lt;/h4>&lt;p>1.1捕获长距离依赖关系&lt;br>
+举个例子：&lt;br>&lt;/p>
+&lt;ul>
+&lt;li>检测人脸时，需要同时看到眼睛、鼻子、嘴巴等特征&lt;/li>
+&lt;li>传统卷积只能看到局部区域&lt;/li>
+&lt;li>自注意力可以直接建立任意两个位置的关联
+1.2自适应特征提取
+比如检测一只猫：&lt;br>
+传统卷积：固定的感受野大小&lt;br>
+自注意力：&lt;br>&lt;/li>
+&lt;li>可以关注猫的整体轮廓&lt;/li>
+&lt;li>也可以关注细节特征(如耳朵、胡须)&lt;/li>
+&lt;li>注意力权重会自动调整
+1.3上下文理解能力&lt;/li>
+&lt;li>每个位置都能获取全局信息&lt;/li>
+&lt;li>特征之间可以互相交互&lt;/li>
+&lt;li>增强了对场景的理解
+1.4动态权重分配&lt;/li>
+&lt;li>自动学习重要特征的权重&lt;/li>
+&lt;li>抑制无关背景的干扰&lt;/li>
+&lt;li>提高特征的判别能力
+1.5并行计算效率&lt;/li>
+&lt;li>可以并行计算多个头&lt;/li>
+&lt;li>每个头关注不同的特征模式&lt;/li>
+&lt;li>提高了特征提取的多样性&lt;/li>
+&lt;/ul>
+&lt;h3 id="font-colorgreen-size4shortcut-连接fontbr">&lt;font color=green size=4>Shortcut 连接&lt;/font>&lt;br>
+&lt;/h3>&lt;p>shortcut 连接是一种网络设计技巧，主要有以下特点：&lt;/p>
+&lt;h4 id="1基本原理">1.基本原理
+&lt;/h4>&lt;ul>
+&lt;li>在网络中创建一条捷径&lt;/li>
+&lt;li>让信息可以跳过某些层直接传递&lt;/li>
+&lt;li>类似于高速公路的快车道&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h4 id="2作用br">2.作用&lt;br>
+&lt;/h4>&lt;p>2.1 解决梯度消失问题&lt;/p>
+&lt;ul>
+&lt;li>深层网络训练困难&lt;/li>
+&lt;li>shortcut 提供梯度反向传播的快速通道&lt;/li>
+&lt;li>帮助深层网络也能有效训练&lt;br>
+2.2 保留原始信息&lt;/li>
+&lt;li>让网络可以直接访问浅层特征&lt;/li>
+&lt;li>避免信息在传递过程中损失&lt;/li>
+&lt;li>提高特征利用效率&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h4 id="3-提升模型性能">3. 提升模型性能
+&lt;/h4>&lt;ul>
+&lt;li>加快收敛速度&lt;/li>
+&lt;li>提高特征提取能力&lt;/li>
+&lt;li>改善最终检测效果&lt;/li>
+&lt;/ul>
 &lt;h2 id="主干网络">主干网络
 &lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -138,8 +269,8 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>包含三个模块&lt;br>&lt;/p>
-&lt;p>&lt;font color=red size=4>1. C3k2 模块&lt;/font>&lt;/p>
-&lt;p>1.参数说明：&lt;/p>
+&lt;h4 id="font-colorred-size41-c3k2-模块font">&lt;font color=red size=4>1. C3k2 模块&lt;/font>
+&lt;/h4>&lt;p>1.参数说明：&lt;/p>
 &lt;ul>
 &lt;li>[256, False, 0.25]：&lt;/li>
 &lt;li>256：输出通道数&lt;/li>
@@ -155,33 +286,8 @@
 &lt;li>保持梯度流动&lt;/li>
 &lt;li>增强特征提取能力&lt;br>&lt;/li>
 &lt;/ul>
-&lt;p>&lt;font color=green size=4>Shortcut 连接&lt;/font>&lt;br>
-shortcut 连接是一种网络设计技巧，主要有以下特点：
-1.基本原理&lt;/p>
-&lt;ul>
-&lt;li>在网络中创建一条捷径&lt;/li>
-&lt;li>让信息可以跳过某些层直接传递&lt;/li>
-&lt;li>类似于高速公路的快车道&lt;br>
-2.作用&lt;br>
-2.1 解决梯度消失问题&lt;/li>
-&lt;li>深层网络训练困难&lt;/li>
-&lt;li>shortcut 提供梯度反向传播的快速通道&lt;/li>
-&lt;li>帮助深层网络也能有效训练&lt;br>
-2.2 保留原始信息&lt;/li>
-&lt;li>让网络可以直接访问浅层特征&lt;/li>
-&lt;li>避免信息在传递过程中损失&lt;/li>
-&lt;li>提高特征利用效率&lt;br>&lt;/li>
-&lt;/ul>
-&lt;ol start="3">
-&lt;li>提升模型性能&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>加快收敛速度&lt;/li>
-&lt;li>提高特征提取能力&lt;/li>
-&lt;li>改善最终检测效果&lt;/li>
-&lt;/ul>
-&lt;p>&lt;font color=red size=4>2. SPPF 模块&lt;/font>&lt;/p>
-&lt;p>1.参数说明：&lt;/p>
+&lt;h4 id="font-colorred-size42-sppf-模块font">&lt;font color=red size=4>2. SPPF 模块&lt;/font>
+&lt;/h4>&lt;p>1.参数说明：&lt;/p>
 &lt;ul>
 &lt;li>[1024, 5]：&lt;/li>
 &lt;li>1024：输出通道数&lt;/li>
@@ -196,8 +302,21 @@ shortcut 连接是一种网络设计技巧，主要有以下特点：
 &lt;li>比传统 SPP 更快&lt;/li>
 &lt;li>增大感受野&lt;/li>
 &lt;/ul>
-&lt;p>&lt;font color=red size=4>3. C2PSA 模块&lt;/font>&lt;/p>
-&lt;p>1.参数说明：&lt;/p>
+&lt;h5 id="模块作用">模块作用：
+&lt;/h5>&lt;p>1.渐进式感受野扩大：&lt;br>&lt;/p>
+&lt;ul>
+&lt;li>第一次池化：小感受野，捕获局部特征&lt;/li>
+&lt;li>第二次池化：中等感受野，捕获中等范围特征&lt;/li>
+&lt;li>第三次池化：大感受野，捕获全局特征
+2.计算效率更高：&lt;br>&lt;/li>
+&lt;li>SPP：需要3个独立的池化分支&lt;/li>
+&lt;li>SPPF：串行池化，复用计算结果
+3.特征融合更完整：&lt;br>&lt;/li>
+&lt;li>将不同感受野的特征concat&lt;/li>
+&lt;li>通过1×1卷积整合多尺度信息&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h4 id="font-colorred-size43-c2psa-模块font">&lt;font color=red size=4>3. C2PSA 模块&lt;/font>
+&lt;/h4>&lt;p>1.参数说明：&lt;/p>
 &lt;ul>
 &lt;li>[1024]：输出通道数&lt;br>
 2.工作原理：&lt;br>
@@ -213,6 +332,18 @@ shortcut 连接是一种网络设计技巧，主要有以下特点：
 &lt;li>自适应特征增强&lt;/li>
 &lt;li>提高特征表达能力&lt;/li>
 &lt;li>改善检测性能&lt;/li>
+&lt;/ul>
+&lt;h5 id="模块作用-1">模块作用
+&lt;/h5>&lt;p>1.特征分离与处理：&lt;/p>
+&lt;ul>
+&lt;li>输入特征通过cv1分成两部分(a,b)&lt;/li>
+&lt;li>a分支保持原始信息&lt;/li>
+&lt;li>b分支经过PSA注意力处理&lt;/li>
+&lt;li>最后将两部分特征重新融合
+2.注意力增强：&lt;/li>
+&lt;li>使用PSABlock进行注意力计算&lt;/li>
+&lt;li>每个PSABlock包含self-attention机制&lt;/li>
+&lt;li>通过多头注意力处理空间信息&lt;/li>
 &lt;/ul></description></item><item><title>云服务器代理设置</title><link>https://0Hzc.github.io/p/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</link><pubDate>Fri, 22 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE/</guid><description>&lt;p>记录给云服务器设置本地局域网代理&lt;/p>
 &lt;h2 id="大致概括">大致概括
 &lt;/h2>&lt;p>通过ssh建立本地代理服务器与云服务器的连接，开启本地代理，关闭本地代理服务器防火墙，关闭云服务器防火墙，设置云服务器代理&lt;/p>
