@@ -4,15 +4,28 @@
 3.自检掌握程度&lt;br>&lt;/p>
 &lt;h2 id="github开源仓库中yolov11相关内容">Github开源仓库中yolov11相关内容
 &lt;/h2>&lt;h3 id="代码结构分析">代码结构分析
-&lt;/h3>&lt;p>在ultralytics仓库中，网络结构相关的核心目录：&lt;br>
-ultralytics/
-├── models/ # 模型定义
-├── nn/ # 网络组件
-│ ├── modules/ # 基础模块
-│ └── tasks/ # 不同任务的实现
-└── cfg/ # 配置文件
-└── models/ # 模型配置&lt;/p>
-&lt;h3 id="网络架构组成">网络架构组成
+&lt;/h3>&lt;p>在ultralytics仓库中，网络结构相关的核心目录：&lt;br>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ultralytics/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── models/ # 模型定义
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── nn/ # 网络组件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├── modules/ # 基础模块
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └── tasks/ # 不同任务的实现
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── cfg/ # 配置文件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> └── models/ # 模型配置
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="网络架构组成">网络架构组成
 &lt;/h3>&lt;p>从配置文件 ultralytics/cfg/models/11/yolo11.yaml&lt;br>
 可以看到，整个网络分为三个主要部分：&lt;br>
 1.Backbone (主干网络)&lt;br>
