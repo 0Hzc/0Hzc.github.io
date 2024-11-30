@@ -1,4 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Study on 404</title><link>https://0Hzc.github.io/categories/study/</link><description>Recent content in Study on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 29 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/categories/study/index.xml" rel="self" type="application/rss+xml"/><item><title>yolo学习记录1</title><link>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Fri, 29 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>学习yolov11的一些基本概念，和一些基础操作内容的作用&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Study on 404</title><link>https://0Hzc.github.io/categories/study/</link><description>Recent content in Study on 404</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 30 Nov 2024 15:00:00 +0800</lastBuildDate><atom:link href="https://0Hzc.github.io/categories/study/index.xml" rel="self" type="application/rss+xml"/><item><title>yolo学习记录0</title><link>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%950/</link><pubDate>Sat, 30 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%950/</guid><description>&lt;p>本文记录学习yolov11网络结构&lt;br>
+1.需要掌握什么内容？&lt;br>
+2.需要掌握到什么程度？&lt;br>
+3.自检掌握程度&lt;br>&lt;/p>
+&lt;h2 id="github开源仓库中yolov11相关内容">Github开源仓库中yolov11相关内容
+&lt;/h2>&lt;h3 id="代码结构分析">代码结构分析
+&lt;/h3>&lt;p>在ultralytics仓库中，网络结构相关的核心目录：&lt;br>
+ultralytics/
+├── models/ # 模型定义
+├── nn/ # 网络组件
+│ ├── modules/ # 基础模块
+│ └── tasks/ # 不同任务的实现
+└── cfg/ # 配置文件
+└── models/ # 模型配置&lt;/p>
+&lt;h3 id="网络架构组成">网络架构组成
+&lt;/h3>&lt;p>从配置文件 ultralytics/cfg/models/11/yolo11.yaml&lt;br>
+可以看到，整个网络分为三个主要部分：&lt;br>
+1.Backbone (主干网络)&lt;br>
+2.Neck (颈部网络)&lt;br>
+3.Head (检测头)&lt;br>&lt;/p>
+&lt;h2 id="需要掌握的内容">需要掌握的内容
+&lt;/h2>&lt;p>1.了解特征提取的层次性&lt;br>
+2.理解下采样的作用&lt;br>
+3.知道感受野的概念&lt;br>
+4.理解多尺度特征融合的重要性&lt;br>
+5.了解特征金字塔网络(FPN)的原理&lt;br>
+6.知道为什么需要特征增强&lt;br>
+7.理解预测头的输出格式&lt;br>
+8.了解分类和回归的区别&lt;br>
+9.知道如何解析预测结果&lt;br>&lt;/p>
+&lt;h2 id="掌握程度">掌握程度
+&lt;/h2>&lt;p>1.能说出三个组件的基本功能&lt;br>
+2.理解特征提取的概念&lt;br>
+3.知道基本的网络结构&lt;br>&lt;/p>
+&lt;p>4.能解释各组件之间的联系&lt;br>
+5.理解特征融合的必要性&lt;br>
+6.能分析网络的创新点&lt;br>&lt;/p>
+&lt;p>7.能修改网络结构&lt;br>
+8.能针对具体任务优化网络&lt;br>
+9.理解性能和效率的平衡&lt;br>&lt;/p>
+&lt;h2 id="自测问题">自测问题
+&lt;/h2>&lt;p>问题1：为什么主干网络要逐步降低特征图尺寸？&lt;br>
+问题2：颈部网络为什么需要双向特征融合？&lt;br>
+问题3：检测头如何处理不同尺度的预测？&lt;br>&lt;/p>
+&lt;p>尝试修改backbone结构，观察效果&lt;br>
+观察不同层的特征图输出&lt;br>&lt;/p>
+&lt;p>练习2：分析网络在不同场景的表现&lt;br>
+理解预测结果的差异&lt;br>&lt;/p>
+&lt;p>如何优化网络结构以提高特定目标的检测效果？&lt;br>
+在资源受限情况下如何平衡性能和效率？&lt;br>
+不同组件对最终性能的影响程度如何？&lt;br>&lt;/p></description></item><item><title>yolo学习记录1</title><link>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</link><pubDate>Fri, 29 Nov 2024 15:00:00 +0800</pubDate><guid>https://0Hzc.github.io/p/yolo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%951/</guid><description>&lt;p>学习yolov11的一些基本概念，和一些基础操作内容的作用&lt;/p>
 &lt;h1 id="配置文件">配置文件
 &lt;/h1>&lt;p>在yolov11下载的工具包中，&amp;ldquo;ultralytics-main\ultralytics\cfg\models\11\yolo11.yaml&amp;rdquo;&lt;br>
 该文件中包括了yolov11的配置文件&lt;/p>
