@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading...</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        :root {
+            /* --- 白天模式 (默认) --- */
+            --bg-color: #f2f5f9; 
+            --text-main: #1a2b3c;
+            --text-sub: #546e7a;
+            --tech-blue: #0055aa; 
+            
+            /* 毛玻璃卡片 */
+            --glass-bg: rgba(255, 255, 255, 0.85); 
+            --glass-border: rgba(0, 60, 150, 0.1);
+            --shadow: 0 20px 60px rgba(0, 30, 80, 0.1);
+            
+            /* 按钮 & 侧边栏 */
+            --btn-bg: rgba(255, 255, 255, 0.8);
+            --btn-border: rgba(0, 0, 0, 0.1);
+            --toc-active: rgba(0, 85, 170, 0.1);
+        }
+
+        body.dark-mode {
+            /* --- 黑夜模式 --- */
+            --bg-color: #000000;
+            --text-main: #edf2f7;
+            --text-sub: #8b949e;
+            --tech-blue: #58a6ff; 
+            
+            --glass-bg: rgba(13, 17, 23, 0.75); 
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            
+            --btn-bg: rgba(20, 20, 20, 0.8);
+            --btn-border: rgba(255, 255, 255, 0.1);
+            --toc-active: rgba(88, 166, 255, 0.15);
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; 
+            transition: background-color 0.8s ease, color 0.5s ease;
+        }
+
+        /* --- 背景层 (3D) --- */
+        #canvas-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            transition: opacity 0.8s;
+        }
+
+        /* --- 顶部导航 --- */
+        .nav-float {
+            position: fixed; top: 30px; left: 30px; z-index: 50;
+        }
+        .back-btn {
+            text-decoration: none; color: var(--text-sub); 
+            display: flex; align-items: center; gap: 8px; cursor: pointer;
+            font-size: 0.9rem; letter-spacing: 1px; transition: all 0.3s;
+            background: var(--btn-bg); padding: 10px 18px; border-radius: 30px;
+            border: 1px solid var(--btn-border); backdrop-filter: blur(10px);
+        }
+        .back-btn:hover { color: var(--tech-blue); border-color: var(--tech-blue); transform: translateX(-3px); }
+
+        /* --- 主题切换按钮 --- */
+        #theme-toggle {
+            position: fixed; top: 30px; right: 30px; width: 44px; height: 44px;
+            background: var(--btn-bg); border: 1px solid var(--btn-border);
+            backdrop-filter: blur(10px); border-radius: 50%; cursor: pointer; z-index: 50;
+            display: flex; justify-content: center; align-items: center; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        #theme-toggle:hover { transform: rotate(15deg) scale(1.1); border-color: var(--tech-blue); }
+        #theme-toggle svg { width: 20px; height: 20px; fill: var(--tech-blue); }
+
+        /* --- 核心布局：Grid 系统 (已修改) --- */
+        .content-wrapper {
+            position: relative; z-index: 10;
+            width: 100%; height: 100%;
+            display: grid;
+            
+            /* 【修改重点】调整列宽比例 
+               1. minmax(60px, 1fr): 左侧留白，最小60px，最大1份。
+               2. minmax(800px, 1200px): 文章主体，最小800，最大放宽到1200px！
+               3. 280px: 目录固定宽度。
+               4. minmax(40px, 0.2fr): 右侧留白，非常小(0.2份)，把目录逼近右边。
+            */
+            grid-template-columns: minmax(60px, 1fr) minmax(800px, 1200px) 280px minmax(40px, 0.2fr);
+            
+            /* 增加文章与目录之间的间距 */
+            grid-gap: 60px;
+            
+            overflow-y: auto; 
+            padding-top: 100px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scroll-behavior: smooth;
+        }
+
+        /* 文章卡片 */
+        .article-card {
+            grid-column: 2; /* 占据第2列 */
+            margin-bottom: 150px; 
+            
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 80px 100px; 
+            
+            box-shadow: var(--shadow);
+            animation: cardIn 1.0s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: background 0.5s, border 0.5s, box-shadow 0.5s;
+            
+            height: fit-content;
+            /* 确保它能撑满 Grid 分配的宽度 */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 目录侧边栏 (Sticky) */
+        .toc-sidebar {
+            grid-column: 3; /* 占据第3列 */
+            position: sticky;
+            top: 40px; 
+            height: fit-content;
+            max-height: 70vh;
+            overflow-y: auto;
+            
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 25px;
+            
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.2s ease;
+            scrollbar-width: none; 
+        }
+        
+        .toc-title {
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-sub); margin-bottom: 15px; font-weight: 700;
+            border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;
+        }
+        
+        .toc-list { list-style: none; padding: 0; margin: 0; }
+        .toc-item { margin-bottom: 8px; }
+        
+        .toc-link {
+            text-decoration: none; color: var(--text-sub);
+            font-size: 0.9rem; display: block; padding: 6px 12px;
+            border-radius: 6px; transition: all 0.2s;
+            border-left: 2px solid transparent;
+        }
+        .toc-link:hover { color: var(--tech-blue); background: rgba(125,125,125,0.05); }
+        
+        /* 目录层级 */
+        .toc-level-2 { padding-left: 12px; font-weight: 600; }
+        .toc-level-3 { padding-left: 24px; font-size: 0.85rem; }
+        
+        .toc-link.active {
+            color: var(--tech-blue);
+            background: var(--toc-active);
+            border-left-color: var(--tech-blue);
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Typography */
+        h1 { font-size: 3.5rem; margin-bottom: 25px; letter-spacing: -1px; line-height: 1.2; font-weight: 700; color: var(--text-main); transition: color 0.5s;}
+        
+        .meta-info {
+            display: flex; align-items: center; gap: 20px;
+            margin-bottom: 60px; font-family: "JetBrains Mono", "Courier New", monospace;
+            font-size: 0.95rem; color: var(--text-sub);
+        }
+        .loc-indicator {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--tech-blue); border: 1px solid var(--glass-border);
+            padding: 4px 10px; border-radius: 4px; background: rgba(125,125,125,0.05);
+        }
+        .pulse-dot {
+            width: 6px; height: 6px; background: var(--tech-blue); border-radius: 50%;
+            box-shadow: 0 0 8px var(--tech-blue);
+        }
+
+        .markdown-body { font-size: 1.2rem; line-height: 1.9; color: var(--text-main); }
+        .markdown-body h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 25px; color: var(--tech-blue); border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; scroll-margin-top: 100px; }
+        .markdown-body h3 { font-size: 1.5rem; margin-top: 40px; margin-bottom: 15px; color: var(--text-main); scroll-margin-top: 100px;}
+        .markdown-body p { margin-bottom: 25px; text-align: justify; }
+        .markdown-body img { max-width: 100%; border-radius: 8px; margin: 30px 0; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--glass-border); }
+        .markdown-body pre { background: #1e2227; padding: 25px; border-radius: 12px; overflow-x: auto; margin: 35px 0; border: 1px solid var(--glass-border); }
+        .markdown-body code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; }
+        .markdown-body ul { margin-bottom: 25px; padding-left: 20px; }
+        .markdown-body li { margin-bottom: 8px; }
+
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
+            background: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--tech-blue); font-family: monospace; letter-spacing: 3px;
+            transition: opacity 0.8s, background-color 0.8s;
+        }
+        
+        /* 响应式适配 */
+        /* 中等屏幕：稍微缩小文章宽度，保持布局 */
+        @media (max-width: 1600px) {
+            .content-wrapper { grid-template-columns: minmax(40px, 1fr) minmax(700px, 1000px) 260px minmax(20px, 0.1fr); grid-gap: 40px; }
+        }
+        /* 小屏幕：隐藏目录，文章居中 */
+        @media (max-width: 1100px) {
+            .content-wrapper { grid-template-columns: 1fr minmax(600px, 900px) 1fr; }
+            .toc-sidebar { display: none; }
+            .article-card { grid-column: 2; }
+        }
+        /* 手机：全屏 */
+        @media (max-width: 800px) {
+            .content-wrapper { grid-template-columns: 1fr; display: block; }
+            .article-card { width: 92%; margin: 80px auto; padding: 40px 25px; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+
+    <script type="x-shader/x-vertex" id="vertexShader">
+        attribute float size;
+        attribute vec3 customColor;
+        varying vec3 vColor;
+        void main() {
+            vColor = customColor;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (300.0 / -mvPosition.z); 
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        uniform vec3 uColorScale; 
+        varying vec3 vColor;
+        void main() {
+            if (length(gl_PointCoord - vec2(0.5, 0.5)) > 0.475) discard;
+            gl_FragColor = vec4(vColor * uColorScale, 0.9); 
+        }
+    </script>
+</head>
+<body>
+
+    <div id="loader">
+        <div>ORBITAL INSERTION...</div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <div class="nav-float">
+        <a href="index.html" class="back-btn">
+            <span>← RETURN</span>
+        </a>
+    </div>
+
+    <button id="theme-toggle" aria-label="Toggle Theme">
+        <svg id="icon-sun" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1z"/></svg>
+        <svg id="icon-moon" viewBox="0 0 24 24" style="display:none;"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>
+    </button>
+
+    <div class="content-wrapper" id="scrollContainer">
+        <div class="article-card">
+            <h1 id="postTitle"></h1>
+            <div class="meta-info">
+                <span id="postDate"></span>
+                <div class="loc-indicator">
+                    <div class="pulse-dot"></div>
+                    <span id="postLoc">LOCATING...</span>
+                </div>
+            </div>
+            <div id="postBody" class="markdown-body"></div>
+        </div>
+
+        <aside class="toc-sidebar" id="tocSidebar">
+            <div class="toc-title">On This Page</div>
+            <ul class="toc-list" id="tocList"></ul>
+        </aside>
+    </div>
+
+    <script>
+        // === PART 1: 3D 粒子地球 (保持不变) ===
+        let scene, camera, renderer, particles;
+        let targetRotY = 0;
+        let targetRotX = 0;
+        
+        const GLOBE_RADIUS = 45; 
+        const DOT_DENSITY = 220; 
+        const INITIAL_OFFSET_Y = 0.5;
+        const ANIMATION_SPEED = 0.03;
+
+        let isDarkMode = false;
+
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0xf2f5f9, 0.008);
+
+            camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+            camera.position.set(0, 0, 65);
+            camera.lookAt(0, -15, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const loader = new THREE.ImageLoader();
+            loader.load('./assets/images/earth.jpg', function(image) {
+                createParticleGlobe(image);
+                animate();
+                const loaderEl = document.getElementById('loader');
+                loaderEl.style.opacity = 0;
+                setTimeout(() => loaderEl.style.display = 'none', 800);
+            });
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function createParticleGlobe(image) {
+            const canvas = document.createElement('canvas');
+            canvas.width = image.width;
+            canvas.height = image.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0);
+            const data = ctx.getImageData(0, 0, image.width, image.height).data;
+
+            const positions = [];
+            const customColors = [];
+            const sizes = [];
+
+            const colorLand = new THREE.Color(0x2f81f7); 
+            const colorDim = new THREE.Color(0x0d1117);
+
+            for (let lat = 0; lat <= DOT_DENSITY; lat++) {
+                const phi = (lat / DOT_DENSITY) * Math.PI;
+                for (let lon = 0; lon <= DOT_DENSITY * 2; lon++) {
+                    const theta = (lon / (DOT_DENSITY * 2)) * Math.PI * 2;
+
+                    const u = 1 - (lon / (DOT_DENSITY * 2));
+                    const v = lat / DOT_DENSITY;
+                    const pixelX = Math.floor(u * image.width);
+                    const pixelY = Math.floor(v * image.height);
+                    const index = (pixelY * image.width + pixelX) * 4;
+                    const brightness = data[index];
+
+                    const isLand = brightness > 70;
+
+                    const x = GLOBE_RADIUS * Math.sin(phi) * Math.cos(theta);
+                    const y = GLOBE_RADIUS * Math.cos(phi);
+                    const z = GLOBE_RADIUS * Math.sin(phi) * Math.sin(theta);
+
+                    if (isLand || Math.random() < 0.015) {
+                        positions.push(x, y, z);
+                        if (isLand) {
+                            customColors.push(colorLand.r, colorLand.g, colorLand.b);
+                            sizes.push(0.35); 
+                        } else {
+                            customColors.push(colorDim.r, colorDim.g, colorDim.b);
+                            sizes.push(0.15);
+                        }
+                    }
+                }
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            geometry.setAttribute('customColor', new THREE.Float32BufferAttribute(customColors, 3));
+            geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
+
+            const material = new THREE.ShaderMaterial({
+                uniforms: {
+                    uColorScale: { value: new THREE.Vector3(0.6, 0.6, 0.7) } 
+                },
+                vertexShader: document.getElementById('vertexShader').textContent,
+                fragmentShader: document.getElementById('fragmentShader').textContent,
+                transparent: true,
+                depthWrite: false,
+                blending: THREE.NormalBlending 
+            });
+
+            particles = new THREE.Points(geometry, material);
+            particles.position.y = -36; 
+            particles.rotation.y = Math.PI + INITIAL_OFFSET_Y; 
+
+            scene.add(particles);
+
+            if(window.pendingLat !== undefined) {
+                focusOn(window.pendingLat, window.pendingLon);
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function focusOn(lat, lon) {
+            window.pendingLat = lat;
+            window.pendingLon = lon;
+            if(!particles) return;
+
+            const targetY = (lon * Math.PI / 180) - Math.PI / 2;
+            const targetX = (lat * Math.PI / 180) * 0.3; 
+
+            targetRotY = targetY;
+            targetRotX = targetX;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if(particles) {
+                let dy = targetRotY - particles.rotation.y;
+                while (dy > Math.PI) dy -= Math.PI * 2;
+                while (dy < -Math.PI) dy += Math.PI * 2;
+                particles.rotation.y += dy * ANIMATION_SPEED;
+
+                let dx = targetRotX - particles.rotation.x;
+                particles.rotation.x += dx * ANIMATION_SPEED;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // === PART 2: UI & 文章加载 ===
+        const toggleBtn = document.getElementById('theme-toggle');
+        const iconSun = document.getElementById('icon-sun');
+        const iconMoon = document.getElementById('icon-moon');
+
+        toggleBtn.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            
+            iconSun.style.display = isDarkMode ? 'none' : 'block';
+            iconMoon.style.display = isDarkMode ? 'block' : 'none';
+
+            update3DTheme(isDarkMode);
+        });
+
+        function update3DTheme(dark) {
+            if (!scene || !particles) return;
+
+            if (dark) {
+                scene.fog.color.setHex(0x050505);
+                particles.material.blending = THREE.AdditiveBlending;
+                particles.material.uniforms.uColorScale.value.set(1.5, 1.5, 1.5);
+            } else {
+                scene.fog.color.setHex(0xf2f5f9);
+                particles.material.blending = THREE.NormalBlending;
+                particles.material.uniforms.uColorScale.value.set(0.6, 0.6, 0.7);
+            }
+            particles.material.needsUpdate = true; 
+        }
+
+        /* --- 生成目录逻辑 --- */
+        function generateTOC() {
+            const tocList = document.getElementById('tocList');
+            const headers = document.querySelectorAll('.markdown-body h2, .markdown-body h3');
+            
+            if (headers.length === 0) {
+                document.getElementById('tocSidebar').style.display = 'none';
+                return;
+            }
+
+            headers.forEach((header, index) => {
+                const id = 'header-' + index;
+                header.id = id;
+
+                const li = document.createElement('li');
+                li.className = 'toc-item';
+                
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.className = 'toc-link ' + (header.tagName === 'H2' ? 'toc-level-2' : 'toc-level-3');
+                a.innerText = header.innerText;
+                
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+
+            // 滚动监听
+            const scrollContainer = document.getElementById('scrollContainer');
+            scrollContainer.addEventListener('scroll', () => {
+                let currentId = '';
+                
+                headers.forEach(header => {
+                    const rect = header.getBoundingClientRect();
+                    // 150px 容差
+                    if (rect.top < 150) {
+                        currentId = header.id;
+                    }
+                });
+
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentId) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const filename = params.get('post');
+            if (!filename) return;
+
+            try {
+                const res = await fetch(`./content/${filename}`);
+                if (!res.ok) throw new Error("File not found");
+                const text = await res.text();
+
+                const parts = text.split(/---\s*[\r\n]+(?!---)/);
+                let bodyMarkdown = text;
+                let meta = {};
+
+                if (text.startsWith('---') && parts.length > 2) {
+                    const metaRaw = parts[1];
+                    bodyMarkdown = parts.slice(2).join('---');
+                    metaRaw.split('\n').forEach(line => {
+                        const idx = line.indexOf(':');
+                        if (idx > 0) {
+                            const key = line.slice(0, idx).trim();
+                            const val = line.slice(idx + 1).trim();
+                            meta[key] = val;
+                        }
+                    });
+                }
+
+                document.title = meta.title || "Reading";
+                document.getElementById('postTitle').innerText = meta.title;
+                document.getElementById('postDate').innerText = meta.date;
+                document.getElementById('postLoc').innerText = (meta.location || "UNKNOWN").toUpperCase();
+                document.getElementById('postBody').innerHTML = marked.parse(bodyMarkdown);
+                hljs.highlightAll();
+
+                generateTOC();
+                initThreeJS();
+                
+                const lat = parseFloat(meta.lat) || 35;
+                const lon = parseFloat(meta.lon) || 105;
+                focusOn(lat, lon);
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('postBody').innerHTML = "<p>ERROR LOADING CONTENT</p>";
+                initThreeJS();
+            }
+        }
+
+        loadPost();
+
+    </script>
+</body>
+</html>

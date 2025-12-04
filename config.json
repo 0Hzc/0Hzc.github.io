@@ -1,0 +1,24 @@
+{
+  "site_settings": {
+    "title": "0hzc's blog",
+    "default_theme": "light"
+  },
+  "profile": {
+    "name": "Smartfish404",
+    "avatar_path": "./assets/avatar/avatar.jpg",
+    "bio_title": "Linux / kernel / Object Detection",
+    "bio_desc": "Exploring the boundaries of code & life."
+  },
+  "social_links": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/0hzc",
+      "icon_path": "./assets/icons/github.svg"
+    },
+    {
+      "name": "Bilibili",
+      "url": "https://space.bilibili.com/503576194",
+      "icon_path": "./assets/icons/bilibili.svg"
+    }
+  ]
+}

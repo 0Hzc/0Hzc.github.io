@@ -1,0 +1,26 @@
+[
+  {
+    "title": "\"云服务器代理设置\"",
+    "date": "2024-11-22",
+    "location": "Tianjin, CN",
+    "lat": 39.2,
+    "lon": 119.4,
+    "filename": "vps-set-proxy.md"
+  },
+  {
+    "title": "\"如何再次部署yjs+quill协同编辑器\"",
+    "date": "2024-11-20",
+    "location": "Tianjin, CN",
+    "lat": 39.2,
+    "lon": 119.4,
+    "filename": "deployed-the-yjs+quill.md"
+  },
+  {
+    "title": "\"使用github+hugo部署博客\"",
+    "date": "2024-11-07",
+    "location": "Tianjin, CN",
+    "lat": 39.2,
+    "lon": 119.4,
+    "filename": "deployed-the-hugo.md"
+  }
+]
