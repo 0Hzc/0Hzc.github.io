@@ -1,5 +1,13 @@
 [
   {
+    "title": "\"记录git使用笔记\"",
+    "date": "2024-12-06",
+    "location": "Tianjin, CN",
+    "lat": 39.2,
+    "lon": 119.4,
+    "filename": "git_note.md"
+  },
+  {
     "title": "\"云服务器代理设置\"",
     "date": "2024-11-22",
     "location": "Tianjin, CN",
